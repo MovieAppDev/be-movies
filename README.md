@@ -139,3 +139,31 @@ https://localhost:7299/swagger
 ## 🧑‍💻 Autor
 
 Este backend fue desarrollado como parte de una prueba técnica para Tecnimática, integrando buenas prácticas de desarrollo, seguridad y diseño limpio.
+
+---
+
+## 🛠️ Problemas comunes y solución aplicada
+
+### ❌ Error: Conflicting assets with the same target path 'css/site[...].css'
+
+Este error se presentó debido a un conflicto interno con archivos estáticos duplicados al compilar (`site.css`). Aunque no había duplicación explícita en el `.csproj`, el sistema generó archivos temporales en caché que causaban el conflicto.
+
+### ✅ Solución aplicada
+
+1. Se eliminaron manualmente las carpetas generadas automáticamente por el build:
+
+```
+bin/
+obj/
+.vs/
+```
+
+2. Luego, se ejecutaron los siguientes comandos para reconstruir el proyecto desde cero:
+
+```bash
+dotnet clean
+dotnet build
+dotnet run
+```
+
+Esto resolvió completamente el conflicto de archivos duplicados y permitió que la aplicación corriera correctamente con Swagger funcionando.
