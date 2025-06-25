@@ -81,7 +81,7 @@ dotnet run
 El backend se ejecutará por defecto en:
 
 ```
-https://localhost:7299
+https://localhost:5151
 ```
 
 ---
