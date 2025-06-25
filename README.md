@@ -1,3 +1,4 @@
+
 # Backend - Tecnimática Fullstack Test
 
 Este es el backend del proyecto fullstack para Tecnimática, desarrollado con ASP.NET Core 8.0 siguiendo principios de arquitectura limpia y buenas prácticas. Permite gestionar usuarios, autenticación con JWT, buscar películas vía OMDb y guardar películas favoritas.
@@ -71,18 +72,6 @@ cd be-movies
 
 ---
 
-## 🗄️ Migraciones y base de datos
-
-Si es la primera vez que ejecutas el proyecto:
-
-```bash
-dotnet ef database update
-```
-
-> Asegúrate de tener configurado el paquete `Pomelo.EntityFrameworkCore.MySql`.
-
----
-
 ## 🚀 Ejecutar el backend
 
 ```bash
@@ -129,16 +118,7 @@ https://localhost:7299/swagger
 
 ## 🧾 Notas
 
-- Las rutas protegidas requieren el header:  
-  `Authorization: Bearer {token}`
-
 - El backend sigue principios SOLID y divide responsabilidades claramente entre controladores, servicios, modelos y DTOs.
-
----
-
-## 🧑‍💻 Autor
-
-Este backend fue desarrollado como parte de una prueba técnica para Tecnimática, integrando buenas prácticas de desarrollo, seguridad y diseño limpio.
 
 ---
 
@@ -167,3 +147,42 @@ dotnet run
 ```
 
 Esto resolvió completamente el conflicto de archivos duplicados y permitió que la aplicación corriera correctamente con Swagger funcionando.
+
+---
+
+## 📌 Justificación del Stack Tecnológico
+
+Se eligió el stack ASP.NET Core + MySQL + React por las siguientes razones:
+
+- **ASP.NET Core 8.0**: Framework moderno, multiplataforma y altamente eficiente para desarrollar APIs RESTful con rendimiento robusto y soporte empresarial.
+- **Entity Framework Core con Pomelo + MySQL**: ORM potente y flexible que permite mapear modelos a tablas relacionales. Se escogió MySQL por ser un motor liviano, ampliamente adoptado y fácil de configurar.
+- **JWT + BCrypt**: Para asegurar sesiones autenticadas con tokens seguros y proteger contraseñas mediante hashing.
+- **OMDb API**: Permite acceder rápidamente a información de películas con un consumo sencillo vía HTTP.
+- **Swagger**: Documentación interactiva que facilita pruebas y validación de endpoints.
+
+---
+
+## 🧩 Tablas en la Base de Datos
+
+### 📄 Tabla: `Users`
+
+| Campo        | Tipo       | Descripción                        |
+|--------------|------------|------------------------------------|
+| `Id`         | INT        | Identificador primario             |
+| `Username`   | VARCHAR    | Nombre de usuario                  |
+| `Password`   | VARCHAR    | Contraseña hasheada con BCrypt     |
+
+---
+
+### 📄 Tabla: `Favorites`
+
+| Campo        | Tipo       | Descripción                        |
+|--------------|------------|------------------------------------|
+| `Id`         | INT        | Identificador primario             |
+| `UserId`     | INT        | Clave foránea hacia `Users`        |
+| `ImdbId`     | VARCHAR    | ID único de la película en OMDb    |
+| `Title`      | VARCHAR    | Título de la película              |
+
+> La relación entre `Users` y `Favorites` es de **uno a muchos**: un usuario puede tener varias películas favoritas.
+
+---
